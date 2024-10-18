@@ -1,0 +1,280 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+ }
+
+.top-bar {
+    padding: -1px -1px; /* Ajoutez de l'espace à gauche et à droite */
+    display: flex;
+    justify-content: space-between; /* Répartit les éléments horizontalement */
+    align-items: center;
+    background-color: #FEFEFE;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5vw;
+    width: 100%;
+    z-index: 9999;
+    
+    
+}
+
+
+
+body {
+    padding-top: 8vw; /* Adjust based on the height of your top bar */
+}
+
+
+.logo-container {
+    align-items: center; 
+    width: 45%;
+ }
+ 
+ .logo-image {
+    width: 25%;
+    margin-top: 2%;
+    margin-left: 2%;
+ }
+ 
+
+ 
+
+.top-bar-items {
+    display: flex;
+    align-items: center; 
+    margin-left: 0px;
+    font-size: 1vw;
+}
+
+   
+
+/* Container du logo et des éléments de menu */
+
+.link_text{
+    display: flex;
+    margin-left: -17%;
+}
+
+.link_text,.button-two{
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+    justify-content: center; 
+}
+
+/* Menu items */
+.top-bar-items a {
+    margin-top: 5%;
+    margin-right:4vw; /* Ajoute de l'espace entre les éléments de texte */
+    color: black;
+
+    text-decoration: none; 
+   
+}
+
+.link_text a:hover{
+    text-decoration: underline;
+    color: #000080;
+   
+}
+
+#propos{
+    width: 5vw;
+}
+
+
+.image-pc {
+    width: 32%;
+    display: block;
+    position: relative; /* Ensure relative positioning */
+    margin-left: auto; /* Align to the right */
+    margin-right: 4%; /* Align to the right */
+    top: 60px; 
+    
+}
+
+.button-two{
+    margin-top: 3% ;
+    display: flex;
+}
+
+/*******************************/
+
+
+/* Explorer button */
+.explorer-button{
+   
+    margin-left: 10%;
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+    justify-content: center; 
+    font-family: 'poppins' , sans-serif;
+    font-weight: 600;
+    font-size: 1vw;
+    cursor: pointer;
+    display: flex;
+    height: 2.8vw;
+    white-space: nowrap;
+    padding: 0.75rem 4rem;
+    background-color: #fefefe;
+    color: #000080;
+    border: 2px solid #000080;
+    width: 12%;
+    margin-left: 20px;
+    border-radius: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.explorer-button:hover{
+background-color: #8557c520;
+    font-family: 'poppins' , sans-serif;
+    text-align: center;
+}
+
+
+.connect-button {
+   
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+    justify-content: center; 
+    font-family: 'poppins' , sans-serif;
+    font-weight: 600;
+    font-size: 1vw;
+    cursor: pointer;
+    margin-top: -5.5%
+;
+    display: flex;
+    height: 2.8vw;
+    white-space: nowrap;
+    padding: 0.75vw 6vw;
+    width: 12%;
+    margin-left: 25%;
+    cursor: pointer;
+    background-color: #000080;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid #000080;
+}
+.connect-button:hover {
+
+    background-color: #2e4670;
+
+}
+
+
+
+/************** custom scrollbar********************/
+::-webkit-scrollbar{
+
+    width: 15px;
+    overflow-x: none;
+}
+::-webkit-scrollbar-track{
+
+    background-color:rgba(128, 128, 128, 0.193);
+    border-radius: 0.3em;
+    margin-block: 0.25em;
+}
+::-webkit-scrollbar-thumb{
+    background: linear-gradient(#365386cd,#000080) ;
+    border-radius: 0.5em;
+}
+
+/*______________________________________________________________________*/
+
+.partie-filtre2 {
+    display: flex;
+    flex-direction: row;
+    margin-top: 17px;
+    margin-left: 3px;
+    height: 40px;
+}
+
+.filtrex {
+    width: 100%;
+    margin-right: 6%;
+}
+
+.textBox2 {
+    margin-top: 1%;
+    height: 2.7vw;
+    width: 130%;
+    border: 2px solid #000080 ;
+    border-radius: 10px;
+    border-width: 100;
+    cursor: pointer;
+    outline: none;
+    font-family: poppins;
+}
+
+.textBox2::placeholder {
+    font-size: 1vw; 
+}
+
+.filtrex .option2 {
+    font-size: 1vw;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    position: absolute;
+    top: 140%;
+    background: white;
+    border: 2px solid #000080 ;
+    border-radius: 6px;
+    width: 20%;
+    margin-left: 0.3%;
+}
+
+.option2 div {
+    margin: 7px;
+}
+
+.dropdown2 .option2 div {
+    padding: 1px 5px;
+}
+
+.dropdown2 .option2 div:hover {
+    background: rgb(201, 199, 199);
+    border-radius: 5px;
+}
+
+.dropdown2 .option2 {
+    display: none;
+}
+
+.dropdown2.active .option2 {
+    display: block;
+    position: absolute;  
+    z-index: 1;  
+    margin-top: -34px;
+}
+
+.textBox-with-icon2 {
+    align-items: center;
+    position: relative;
+}
+
+.menu-icon2 {
+    width: 1.5vw;
+    margin-left: 110%; 
+    transform: rotate(0deg);
+    transition: 0.5s;
+    transform: translateY(-170%);
+}
+
+.menu-icon2.active {
+    width: 1.5vw;
+    margin-left: 110%; 
+    transform: translateY(-170%) rotate(180deg); 
+    transition: 0.5s;
+}
