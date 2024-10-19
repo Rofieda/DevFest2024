@@ -23,6 +23,8 @@ urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('dashboard/', dashboard_redirect, name='dashboard_redirect'),
+    path('entreprises/', EntrepriseListView.as_view(), name='entreprise-list'),
 
 ]
 
