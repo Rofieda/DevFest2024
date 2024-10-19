@@ -22,8 +22,21 @@ class RevenueSerializer(serializers.ModelSerializer):
         # This method can be overridden if you need custom logic when creating a Revenue instance
         return super().create(validated_data)
     
+<<<<<<< HEAD
 
 class UtilisateurSerializer(serializers.ModelSerializer):
     class Meta:
         model = Utilisateur
         fields = '__all__'
+=======
+class DepensesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Depenses
+        fields = '__all__'  # Or specify the fields you want to expose
+
+
+class RevenueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Revenue
+        fields = ['id', 'entreprise', 'montant', 'date', 'categorie', 'description', 'type_flux_tresorerie']  # Add the field here
+>>>>>>> 8bfe9c25e17f84a5955e2122e28256257a19cc3a

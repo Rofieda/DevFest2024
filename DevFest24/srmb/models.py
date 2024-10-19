@@ -80,6 +80,10 @@ class Revenue(models.Model):
         ('investissement', 'Investissement'),
         ('financement', 'Financement'),
     )
+<<<<<<< HEAD
+=======
+    type_flux_tresorerie = models.CharField(max_length=50, choices=TYPE_FLUX_CHOICES)
+>>>>>>> 8bfe9c25e17f84a5955e2122e28256257a19cc3a
     entreprise = models.ForeignKey(Entreprise, on_delete=models.CASCADE, related_name='revenues')
     type_flux_tresorerie = models.CharField(max_length=50, choices=TYPE_FLUX_CHOICES)
     montant = models.DecimalField(max_digits=15, decimal_places=2)
