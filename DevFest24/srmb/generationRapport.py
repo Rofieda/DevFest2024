@@ -12,7 +12,7 @@ def somme_depenses(idEntreprise, dateDebut, dateFin):
     depenses = Depenses.objects.filter(
         entreprise_id=idEntreprise,
         date__range=[dateDebut, dateFin]
-    ).values('date', 'montant')
+    ).values('date','type','description', 'montant')
 
     # Calculer la somme totale des dépenses
     total_depenses = depenses.aggregate(total=Sum('montant'))['total']
@@ -34,7 +34,7 @@ def somme_revenues(idEntreprise, dateDebut, dateFin):
     total_revenues = Revenue.objects.filter(
         entreprise_id=idEntreprise,
         date__range=[dateDebut, dateFin]
-    ).values('date', 'montant')
+    ).values('date','categorie','description', 'montant')
 
 # Calculer la somme totale des dépenses
     total_revenu = total_revenues.aggregate(total=Sum('montant'))['total']
@@ -161,17 +161,23 @@ def somme_depenses_flux(idEntreprise, dateDebut, dateFin, typeFlux):
     
 
     # Calculer la somme des dépenses avec le type de flux 'opérationnelle'
-    total_depenses = Depenses.objects.filter(
+    tab_depenses = Depenses.objects.filter(
         entreprise_id=idEntreprise,
         date__range=[dateDebut, dateFin],
         type_flux_tresorerie=typeFlux  # Filtre par type de flux
-    ).aggregate(total=Sum('montant'))['total']
+    ).values('date','type_flux_tresorerie', 'montant')
+
+# Calculer la somme totale des dépenses
+    total_depenses = tab_depenses.aggregate(total=Sum('montant'))['total']
+
+# Créer un tableau avec chaque date et montant
+    tableau_depenses = [{'date': depense['date'], 'montant': depense['montant']} for depense in tab_depenses]
 
     # Si aucune dépense n'est trouvée, retourner 0
     if total_depenses is None:
         total_depenses = 0
 
-    return total_depenses
+    return total_depenses, tableau_depenses
 
 #flux de tresories revenus 
   
@@ -179,17 +185,24 @@ def somme_revenu_flux(idEntreprise, dateDebut, dateFin, typeFlux):
     
 
     # Calculer la somme des dépenses avec le type de flux 'opérationnelle'
-    total_depenses = Revenue.objects.filter(
+    tab_depenses = Revenue.objects.filter(
         entreprise_id=idEntreprise,
         date__range=[dateDebut, dateFin],
         type_flux_tresorerie=typeFlux  # Filtre par type de flux
-    ).aggregate(total=Sum('montant'))['total']
+    ).values('date','type_flux_tresorerie', 'montant')
+
+# Calculer la somme totale des dépenses
+    total_depenses = tab_depenses.aggregate(total=Sum('montant'))['total']
+
+# Créer un tableau avec chaque date et montant
+    tableau_depenses = [{'date': depense['date'], 'montant': depense['montant']} for depense in tab_depenses]
 
     # Si aucune dépense n'est trouvée, retourner 0
     if total_depenses is None:
         total_depenses = 0
 
-    return total_depenses
+    return total_depenses, tableau_depenses
+
 
 #Flux de tresorie
 @csrf_exempt 
@@ -213,12 +226,13 @@ def generer_flux_de_tresorie(request, user_id):
                 return JsonResponse({'error': 'Les dates dateDebut et dateFin sont obligatoires.'}, status=400)
 
             
-            total_depenses_oper=somme_depenses_flux(entreprise_id, dateDebut, dateFin, "opérationnelle")
-            total_depenses_invest=somme_depenses_flux(entreprise_id, dateDebut, dateFin, "investissement")
-            total_depenses_finan=somme_depenses_flux(entreprise_id, dateDebut, dateFin, "financement")
-            total_revenu_oper=somme_revenu_flux(entreprise_id, dateDebut, dateFin, "opérationnelle")
-            total_revenu_invest=somme_revenu_flux(entreprise_id, dateDebut, dateFin, "investissement")
-            total_revenu_finan=somme_revenu_flux(entreprise_id, dateDebut, dateFin, "financement")
+            total_depenses_oper, tab_dep_op=somme_depenses_flux(entreprise_id, dateDebut, dateFin, "opérationnelle")
+            total_depenses_invest, tab_dep_invest=somme_depenses_flux(entreprise_id, dateDebut, dateFin, "investissement")
+            total_depenses_finan, tab_dep_finan=somme_depenses_flux(entreprise_id, dateDebut, dateFin, "financement")
+
+            total_revenu_oper,tab_revenu_oper=somme_revenu_flux(entreprise_id, dateDebut, dateFin, "opérationnelle")
+            total_revenu_invest,tab_revenu_invest=somme_revenu_flux(entreprise_id, dateDebut, dateFin, "investissement")
+            total_revenu_finan,tab_revenu_finan=somme_revenu_flux(entreprise_id, dateDebut, dateFin, "financement")
            
             activité_opérationelles= total_revenu_oper-total_depenses_oper
             activité_investissement= total_revenu_invest-total_depenses_invest
