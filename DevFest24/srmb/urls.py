@@ -5,7 +5,7 @@ from .views import AddRevenue
 from .views import SignUpView, LoginView, LogoutView
 
 from .views import AddRevenue, AddUtilisateur
-from .views import DepensesListAPIView , RevenuesListView
+from .views import  DepensesListAPIView,RevenuesListView
 from . import predictionDepense
 from .generationRapport import generer_compteDeResultat,generer_bilan,generer_flux_de_tresorie
 
