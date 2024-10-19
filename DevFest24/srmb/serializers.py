@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Depenses , Entreprise ,Revenue
+from .models import Depenses , Entreprise ,Revenue, Utilisateur
 
 class DepensesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,6 +21,23 @@ class RevenueSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # This method can be overridden if you need custom logic when creating a Revenue instance
         return super().create(validated_data)
+    
+class DepensesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Depenses
+        fields = '__all__'  # Or specify the fields you want to expose
+
+
+class RevenueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Revenue
+        fields = ['id', 'entreprise', 'montant', 'date', 'categorie', 'description', 'type_flux_tresorerie']  # Add the field here
+
+class UtilisateurSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Utilisateur
+        fields = '__all__'
+
     
 
 
