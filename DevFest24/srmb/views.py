@@ -49,12 +49,18 @@ class LoginView(generics.GenericAPIView):
 
         # Authenticate the user
         user = authenticate(request, username=username, password=password)
-        
+        entreprise = Entreprise.objects.get(id=user.entreprise)
         if user is not None:
             # If authentication is successful, log the user in
             login(request, user)
             return Response({
                 'user': UserSerializer(user).data, 
+                'entreprise': {
+                    'name': entreprise.name,
+                    'email': entreprise.email,
+                    'address': entreprise.address,
+                    'phone': entreprise.phone
+                },
                 'detail': 'Login successful.'
             }, status=status.HTTP_200_OK)
         else:
