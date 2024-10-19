@@ -61,6 +61,12 @@ class LoginView(generics.GenericAPIView):
                     'address': entreprise.address,
                     'phone': entreprise.phone
                 },
+                'entreprise': {
+                    'name': entreprise.name,
+                    'email': entreprise.email,
+                    'address': entreprise.address,
+                    'phone': entreprise.phone
+                },
                 'detail': 'Login successful.'
             }, status=status.HTTP_200_OK)
         else:
