@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/formStyle.css">
+    <title>Financial Report Form</title>
+    
+</head>
+<body>
+    <h1>Financial Dashboard</h1>
+    <button id="openModalBtn">Generate Report</button>
+
+    <!-- The Modal -->
+    <div id="reportModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <h2>Generate Financial Report</h2>
+            <form id="reportForm">
+                <div class="form-group">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" required>
+                    <div id="dateError" class="error">End date must be after start date.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reportType">Report Type:</label>
+                    <select id="reportType" required>
+                        <option value="" disabled selected>Select report type</option>
+                        <option value="incomeStatement">Income Statements</option>
+                        <option value="balanceSheet">Balance Sheets</option>
+                        <option value="cashFlow">Cash Flow</option>
+                        <option value="customizedReport">Customized Report</option>
+                    </select>
+                </div>
+
+                <div id="customChoices" class="form-group">
+                    <label>Select Customized Report Items:</label>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="assets" value="Assets"> 
+                        <label for="assets">Assets</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="liabilities" value="Liabilities"> 
+                        <label for="liabilities">Liabilities</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="equity" value="Equity"> 
+                        <label for="equity">Equity</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="operatingActivities" value="Operating Activities"> 
+                        <label for="operatingActivities">Operating Activities</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="investingActivities" value="Investing Activities"> 
+                        <label for="investingActivities">Investing Activities</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="financingActivities" value="Financing Activities"> 
+                        <label for="financingActivities">Financing Activities</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="totalRevenue" value="Total Revenue"> 
+                        <label for="totalRevenue">Total Revenue</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="totalExpenses" value="Total Expenses"> 
+                        <label for="totalExpenses">Total Expenses</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="netProfit" value="Net Profit"> 
+                        <label for="netProfit">Net Profit</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="operatingExpenses" value="Operating Expenses"> 
+                        <label for="operatingExpenses">Operating Expenses</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="investingExpenses" value="Investing Expenses"> 
+                        <label for="investingExpenses">Investing Expenses</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="financingExpenses" value="Financing Expenses"> 
+                        <label for="financingExpenses">Financing Expenses</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="operatingRevenue" value="Operating Revenue"> 
+                        <label for="operatingRevenue">Operating Revenue</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="investingRevenue" value="Investing Revenue"> 
+                        <label for="investingRevenue">Investing Revenue</label>
+                    </div>
+                    <div class="custom-checkbox-group">
+                        <input type="checkbox" id="financingRevenue" value="Financing Revenue"> 
+                        <label for="financingRevenue">Financing Revenue</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="format">Format:</label>
+                    <select id="format" required>
+                        <option value="" disabled selected>Select format</option>
+                        <option value="pdf">PDF</option>
+                        <option value="excel">Excel</option>
+                        <option value="csv">CSV</option>
+                    </select>
+                </div>
+
+                <div class="button-container">
+                    <button type="submit">Generate Report</button>
+                    <button type="button" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get modal elements
+        const modal = document.getElementById('reportModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+        // Open modal on button click
+        openModalBtn.addEventListener('click', function() {
+            modal.style.display = 'block';
+        });
+
+        // Close modal on cancel button click
+        cancelBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal if clicked outside of content
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Show/hide custom choices when "Customized Report" is selected
+        const reportType = document.getElementById('reportType');
+        const customChoices = document.getElementById('customChoices');
+
+        reportType.addEventListener('change', function() {
+            if (this.value === 'customizedReport') {
+                customChoices.style.display = 'block';
+            } else {
+                customChoices.style.display = 'none';
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('reportForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            const selectedReportType = reportType.value;
+            const format = document.getElementById('format').value;
+            let customReportChoices = [];
+
+            // Date validation
+            const dateError = document.getElementById('dateError');
+            if (endDate < startDate) {
+                dateError.style.display = 'block';
+                return; // Stop the form submission
+            } else {
+                dateError.style.display = 'none'; // Hide error if dates are valid
+            }
+
+            if (selectedReportType === 'customizedReport') {
+                document.querySelectorAll('#customChoices input[type=checkbox]:checked').forEach(checkbox => {
+                    customReportChoices.push(checkbox.value);
+                });
+            }
+
+            const formData = {
+                startDate: startDate.toISOString().split('T')[0], // Format for logging
+                endDate: endDate.toISOString().split('T')[0],
+                selectedReportType,
+                customReportChoices,
+                format
+            };
+
+            console.log('Form Data:', formData);
+            alert('Report generated! Check the console for form data.');
+
+            
+            modal.style.display = 'none';
+        });
+
+    </script>
+</body>
+</html>

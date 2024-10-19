@@ -3,9 +3,18 @@ import { createContext,useEffect,useState } from "react";
 export const authContext= createContext(null);
 
 const AuthContextProvider=({children})=>{
-    const [usernameG, setUsernameG]=useState(JSON.parse((localStorage.getItem('username'))));
-    const [role, setRole]=useState(JSON.parse((localStorage.getItem('role'))))
-    const[entresprise, setEntresprise]=useState(JSON.parse(localStorage.getItem('entreprise')));
+    const [usernameG, setUsernameG]=useState(()=>{
+        const username = localStorage.getItem('username')
+        return username ? JSON.parse(username): null
+    })
+    const [role, setRole]=useState(()=>{
+        const username = localStorage.getItem('role')
+        return username ? JSON.parse(username): null
+    })
+    const[entresprise, setEntresprise]=useState(()=>{
+        const username = localStorage.getItem('entreprise')
+        return username ? JSON.parse(username): null
+    });
 
 
     useEffect(()=>{
