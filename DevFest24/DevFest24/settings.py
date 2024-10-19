@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+import pymysql  # Ajoute cette ligne python manage.py makemigrations
+
+pymysql.install_as_MySQLdb()  # Ajoute cette ligne
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     'rest_framework',
     'srmb',
 ]
 
@@ -78,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'devfest24',
-        'USER': 'Rofieda',
-        'PASSWORD': '@MaaMar@14@LD@AND@IMS@HM@',
+        'USER': 'root',
+        'PASSWORD': 'Livitachi1010#',
         'HOST': 'localhost',   
         'PORT': '3306',     
     }

@@ -20,7 +20,8 @@ class Actif(models.Model):
     type = models.CharField(max_length=20, choices=TYPE_CHOICES)
     montant = models.DecimalField(max_digits=15, decimal_places=2)
     date = models.DateField()
-
+    code_operation=models.DecimalField(max_digits=15, decimal_places=2)
+    libellé = models.CharField(max_length=255)
     def __str__(self):
         return f"{self.type} - {self.montant}"
 
@@ -32,6 +33,8 @@ class Passif(models.Model):
         ('fournisseur', 'Fournisseur'),
         ('autre', 'Autre'),
     )
+    libellé = models.CharField(max_length=255)
+    code_operation=models.DecimalField(max_digits=15, decimal_places=2)
     entreprise = models.ForeignKey(Entreprise, on_delete=models.CASCADE, related_name='passifs')
     type = models.CharField(max_length=20, choices=TYPE_CHOICES)
     montant = models.DecimalField(max_digits=15, decimal_places=2)
@@ -72,7 +75,13 @@ class Revenue(models.Model):
         ('Service', 'Service'),
         ('Autre', 'Autre'),
     )
+    TYPE_FLUX_CHOICES = (
+        ('opérationnelle', 'Opérationnelle'),
+        ('investissement', 'Investissement'),
+        ('financement', 'Financement'),
+    )
     entreprise = models.ForeignKey(Entreprise, on_delete=models.CASCADE, related_name='revenues')
+    type_flux_tresorerie = models.CharField(max_length=50, choices=TYPE_FLUX_CHOICES)
     montant = models.DecimalField(max_digits=15, decimal_places=2)
     date = models.DateField()
     categorie = models.CharField(max_length=50, choices=CATEGORIE_CHOICES)
